@@ -1,19 +1,24 @@
 package com.suanev.restaurant.resources;
 
 import com.suanev.restaurant.domain.Categoria;
+import com.suanev.restaurant.service.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value="/categorias")
 public class CategoriaResource {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String getAll() {
-//        List<Categoria> categorias =
-        return "rest esta funcionando";
+    @Autowired
+    CategoriaService categoriaService;
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Categoria> getById(@PathVariable Integer id) {
+        Categoria categoria = categoriaService.getById(id);
+        return ResponseEntity.ok().body(categoria);
     }
 }
