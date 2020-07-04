@@ -38,6 +38,9 @@ public class RestaurantApplication implements CommandLineRunner {
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
 
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(RestaurantApplication.class, args);
 	}
@@ -334,6 +337,35 @@ public class RestaurantApplication implements CommandLineRunner {
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3, pedido4));
 		pagamentoRepository.saveAll(Arrays.asList(pagamento1, pagamento2, pagamento3, pagamento4));
 
+		ItemPedido itemPedido1 = new ItemPedido(pedido1, p1, 0.00, 2, p1.getPreco());
+		ItemPedido itemPedido2 = new ItemPedido(pedido2, p2, 0.00, 2, p2.getPreco());
+		ItemPedido itemPedido3 = new ItemPedido(pedido2, p8, 0.00, 8, p8.getPreco());
+		ItemPedido itemPedido4 = new ItemPedido(pedido2, p5, 0.00, 6, p5.getPreco());
+		ItemPedido itemPedido5 = new ItemPedido(pedido2, p13, 0.00, 1, p13.getPreco());
+		ItemPedido itemPedido6 = new ItemPedido(pedido2, p14, 0.00, 1, p14.getPreco());
+		ItemPedido itemPedido7 = new ItemPedido(pedido2, p20, 0.00, 4, p20.getPreco());
+		ItemPedido itemPedido8 = new ItemPedido(pedido2, p9, 0.00, 2, p9.getPreco());
+		ItemPedido itemPedido9 = new ItemPedido(pedido2, p19, 0.00, 5, p19.getPreco());
+		ItemPedido itemPedido10 = new ItemPedido(pedido2, p19, 0.00, 2, p21.getPreco());
+		ItemPedido itemPedido11 = new ItemPedido(pedido2, p18, 0.00, 15, p18.getPreco());
 
+		pedido1.getItens().addAll(Arrays.asList(itemPedido1));
+		pedido2.getItens().addAll(Arrays.asList(itemPedido2, itemPedido3, itemPedido4, itemPedido5, itemPedido6, itemPedido7, itemPedido8, itemPedido9));
+		pedido3.getItens().addAll(Arrays.asList(itemPedido10));
+		pedido4.getItens().addAll(Arrays.asList(itemPedido11));
+
+		p1.getItens().addAll(Arrays.asList(itemPedido1));
+		p2.getItens().addAll(Arrays.asList(itemPedido2));
+		p8.getItens().addAll(Arrays.asList(itemPedido3));
+		p5.getItens().addAll(Arrays.asList(itemPedido4));
+		p13.getItens().addAll(Arrays.asList(itemPedido5));
+		p14.getItens().addAll(Arrays.asList(itemPedido6));
+		p20.getItens().addAll(Arrays.asList(itemPedido7));
+		p9.getItens().addAll(Arrays.asList(itemPedido7));
+		p19.getItens().addAll(Arrays.asList(itemPedido9));
+		p21.getItens().addAll(Arrays.asList(itemPedido10));
+		p18.getItens().addAll(Arrays.asList(itemPedido11));
+
+		itemPedidoRepository.saveAll(Arrays.asList(itemPedido1, itemPedido2, itemPedido3, itemPedido4, itemPedido5, itemPedido6, itemPedido7, itemPedido8, itemPedido9, itemPedido10, itemPedido11));
 	}
 }
