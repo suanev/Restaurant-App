@@ -15,15 +15,17 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    private String img;
 
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<>();
 
     public Categoria(){}
 
-    public Categoria(Integer id, String nome) {
+    public Categoria(Integer id, String nome, String img) {
         this.id = id;
         this.nome = nome;
+        this.img = img;
     }
 
     public Integer getId() {
@@ -40,6 +42,14 @@ public class Categoria implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public List<Produto> getProdutos() {

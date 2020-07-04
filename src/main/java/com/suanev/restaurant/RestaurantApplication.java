@@ -49,12 +49,12 @@ public class RestaurantApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		//instanciando categorias
-		Categoria categoria1 = new Categoria(null, "Especiais de Inverno");
-		Categoria categoria2 = new Categoria(null, "Lanches");
-		Categoria categoria3 = new Categoria(null, "Vegetariana");
-		Categoria categoria4 = new Categoria(null, "Massas");
-		Categoria categoria5 = new Categoria(null, "Doces e bolos");
-		Categoria categoria6 = new Categoria(null, "Bebidas");
+		Categoria categoria1 = new Categoria(null, "Especiais de Inverno", "https://i.imgur.com/l7PfOzS.png");
+		Categoria categoria2 = new Categoria(null, "Lanches", "https://i.imgur.com/z61SfxX.png");
+		Categoria categoria3 = new Categoria(null, "Vegetariana", "https://i.imgur.com/jvXKKc8.png");
+		Categoria categoria4 = new Categoria(null, "Massas", "https://i.imgur.com/pNFjucK.png");
+		Categoria categoria5 = new Categoria(null, "Doces e bolos", "https://i.imgur.com/dxTa404.png");
+		Categoria categoria6 = new Categoria(null, "Bebidas", "https://i.imgur.com/G08jnOG.png");
 
 
 		//instanciando produtos
