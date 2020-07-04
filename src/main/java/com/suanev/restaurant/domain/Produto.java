@@ -1,5 +1,7 @@
 package com.suanev.restaurant.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class Produto implements Serializable {
     private String imgDetails;
     private String peso;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(
             name = "PRODUTO_CATEGORIA",
