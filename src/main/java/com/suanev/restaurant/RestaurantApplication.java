@@ -1,8 +1,12 @@
 package com.suanev.restaurant;
 
 import com.suanev.restaurant.Repositories.CategoriaRepository;
+import com.suanev.restaurant.Repositories.CidadeRepository;
+import com.suanev.restaurant.Repositories.EstadoRepository;
 import com.suanev.restaurant.Repositories.ProdutoRepository;
 import com.suanev.restaurant.domain.Categoria;
+import com.suanev.restaurant.domain.Cidade;
+import com.suanev.restaurant.domain.Estado;
 import com.suanev.restaurant.domain.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +22,12 @@ public class RestaurantApplication implements CommandLineRunner {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestaurantApplication.class, args);
@@ -256,6 +266,24 @@ public class RestaurantApplication implements CommandLineRunner {
 
 		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p16, p17, p18, p19, p20, p21, p22));
+
+		//instancia estados
+		Estado estado1 = new Estado(null, "Rio Grande do Sul");
+		Estado estado2 = new Estado(null, "São Paulo");
+		Estado estado3 = new Estado(null, "Rio de Janeiro");
+
+		//instancia cidades
+		Cidade cidade1 = new Cidade(null, "Porto Alegre", estado1);
+		Cidade cidade2 = new Cidade(null, "São Paulo - Capital", estado2);
+		Cidade cidade3 = new Cidade(null, "Rio de Janeiro - Capital", estado3);
+
+		estado1.getCidades().addAll(Arrays.asList(cidade1));
+		estado2.getCidades().addAll(Arrays.asList(cidade2));
+		estado3.getCidades().addAll(Arrays.asList(cidade3));
+
+		estadoRepository.saveAll(Arrays.asList(estado1, estado2, estado3));
+		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
+
 
 	}
 }
