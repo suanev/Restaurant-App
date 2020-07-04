@@ -2,12 +2,14 @@ package com.suanev.restaurant;
 
 import com.suanev.restaurant.Repositories.*;
 import com.suanev.restaurant.domain.*;
+import com.suanev.restaurant.domain.enums.EstadoPagamento;
 import com.suanev.restaurant.domain.enums.TipoCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -27,7 +29,14 @@ public class RestaurantApplication implements CommandLineRunner {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	@Autowired EnderecoRepository enderecoRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+
+	@Autowired
+	private PedidoRepository pedidoRepository;
+
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestaurantApplication.class, args);
@@ -302,5 +311,29 @@ public class RestaurantApplication implements CommandLineRunner {
 
 		clienteRepository.saveAll(Arrays.asList(cliente1, cliente2, cliente3));
 		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2, endereco3, endereco4));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Pedido pedido1 = new Pedido(null, sdf.parse("30/06/2020 10:32"), cliente1, endereco1);
+		Pedido pedido2 = new Pedido(null, sdf.parse("30/06/2020 10:49"), cliente1, endereco4);
+		Pedido pedido3 = new Pedido(null, sdf.parse("01/07/2020 17:40"), cliente2, endereco2);
+		Pedido pedido4 = new Pedido(null, sdf.parse("01/07/2020 20:36"), cliente3, endereco3);
+
+		Pagamento pagamento1 = new PagamentoComCartao(null, EstadoPagamento.CANCELADO, pedido1, 1);
+		pedido1.setPagamento(pagamento1);
+		Pagamento pagamento2 = new PagamentoComCartao(null, EstadoPagamento.PAGO, pedido2, 1);
+		pedido2.setPagamento(pagamento2);
+		Pagamento pagamento3 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, pedido3, sdf.parse("04/07/2020 23:59"),null);
+		pedido3.setPagamento(pagamento3);
+		Pagamento pagamento4 = new PagamentoComCartao(null, EstadoPagamento.PAGO, pedido4, 2);
+		pedido4.setPagamento(pagamento4);
+
+		cliente1.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
+		cliente2.getPedidos().addAll(Arrays.asList(pedido3));
+		cliente3.getPedidos().addAll(Arrays.asList(pedido4));
+
+		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3, pedido4));
+		pagamentoRepository.saveAll(Arrays.asList(pagamento1, pagamento2, pagamento3, pagamento4));
+
+
 	}
 }
