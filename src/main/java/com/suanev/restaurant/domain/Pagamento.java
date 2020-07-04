@@ -1,6 +1,5 @@
 package com.suanev.restaurant.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.suanev.restaurant.domain.enums.EstadoPagamento;
 
@@ -18,7 +17,7 @@ public abstract class Pagamento implements Serializable {
     private Integer estadoPagamento;
 
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
