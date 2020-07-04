@@ -1,13 +1,8 @@
 package com.suanev.restaurant;
 
-import com.suanev.restaurant.Repositories.CategoriaRepository;
-import com.suanev.restaurant.Repositories.CidadeRepository;
-import com.suanev.restaurant.Repositories.EstadoRepository;
-import com.suanev.restaurant.Repositories.ProdutoRepository;
-import com.suanev.restaurant.domain.Categoria;
-import com.suanev.restaurant.domain.Cidade;
-import com.suanev.restaurant.domain.Estado;
-import com.suanev.restaurant.domain.Produto;
+import com.suanev.restaurant.Repositories.*;
+import com.suanev.restaurant.domain.*;
+import com.suanev.restaurant.domain.enums.TipoCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,6 +23,11 @@ public class RestaurantApplication implements CommandLineRunner {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	@Autowired EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestaurantApplication.class, args);
@@ -284,6 +284,23 @@ public class RestaurantApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(estado1, estado2, estado3));
 		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 
+		Cliente cliente1 = new Cliente(null, "Bruno Fraga", "brunof@gmail.com", "42377354351", TipoCliente.PESSOAFISICA);
+		cliente1.getTelefones().addAll(Arrays.asList("835269193", "622869313"));
+		Cliente cliente2 = new Cliente(null, "Camila Fernandes", "camilafernandes@gmail.com", "38625415768", TipoCliente.PESSOAFISICA);
+		cliente2.getTelefones().addAll(Arrays.asList("729926093"));
+		Cliente cliente3 = new Cliente(null, "Elena G", "elenag@gmail.com", "11272246035", TipoCliente.PESSOAFISICA);
+		cliente3.getTelefones().addAll(Arrays.asList("143743495"));
 
+		Endereco endereco1 = new Endereco(null, "Rua Dr.luis da Silva Santos", "780", "ap. 201", "Auxiliadora", "90450236", cliente1, cidade1);
+		Endereco endereco2 = new Endereco(null, "Rua Alameda Lorena", "35", "ap. 1020", "Jardins", "90450236", cliente2, cidade2);
+		Endereco endereco3 = new Endereco(null, "Rua da Alfândega", "678", "ap. 01", "Centro", "90450236", cliente3, cidade3);
+		Endereco endereco4 = new Endereco(null, "Rua Riachuelo", "860", "ap. 120", "Centro", "90860796", cliente1, cidade1);
+
+		cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco4));
+		cliente2.getEnderecos().addAll(Arrays.asList(endereco2));
+		cliente3.getEnderecos().addAll(Arrays.asList(endereco3));
+
+		clienteRepository.saveAll(Arrays.asList(cliente1, cliente2, cliente3));
+		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2, endereco3, endereco4));
 	}
 }
