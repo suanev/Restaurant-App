@@ -2,6 +2,7 @@ package com.suanev.restaurant.service;
 
 import com.suanev.restaurant.Repositories.CategoriaRepository;
 import com.suanev.restaurant.domain.Categoria;
+import com.suanev.restaurant.dto.CategoriaDTO;
 import com.suanev.restaurant.service.exceptions.DataIntegrityException;
 import com.suanev.restaurant.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,9 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return categoriaRepository.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO categoriaDTO) {
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome(), categoriaDTO.getImg());
     }
 }
