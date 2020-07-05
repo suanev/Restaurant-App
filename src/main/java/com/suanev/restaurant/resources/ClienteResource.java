@@ -3,6 +3,7 @@ package com.suanev.restaurant.resources;
 import com.suanev.restaurant.domain.Cliente;
 import com.suanev.restaurant.domain.Cliente;
 import com.suanev.restaurant.dto.ClienteDTO;
+import com.suanev.restaurant.dto.ClienteNewDTO;
 import com.suanev.restaurant.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,16 +35,17 @@ public class ClienteResource {
         Cliente cliente = clienteService.getById(id);
         return ResponseEntity.ok().body(cliente);
     }
-    
+
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO cliente) {
-        Cliente dto = clienteService.fromDTO(cliente);
-        dto = clienteService.insert(dto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO clienteDTO) {
+        Cliente cliente = clienteService.fromDTO(clienteDTO);
+        cliente = clienteService.insert(cliente);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(cliente.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value="/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable Integer id) {
         Cliente cliente = clienteService.fromDTO(clienteDTO);
         cliente.setId(id);
@@ -64,7 +66,7 @@ public class ClienteResource {
             @RequestParam(value="orderBy", defaultValue="nome") String orderBy,
             @RequestParam(value="direction", defaultValue="ASC") String direction) {
         Page<Cliente> list =  clienteService.findPage(page, linesPerPage, orderBy, direction);
-        Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));
+        Page<ClienteDTO> listDto = list.map(cliente -> new ClienteDTO(cliente));
         return ResponseEntity.ok().body(listDto);
     }
 }
