@@ -1,13 +1,19 @@
 package com.suanev.restaurant.service;
 
+import com.suanev.restaurant.Repositories.ItemPedidoRepository;
+import com.suanev.restaurant.Repositories.PagamentoRepository;
 import com.suanev.restaurant.Repositories.PedidoRepository;
+import com.suanev.restaurant.domain.ItemPedido;
+import com.suanev.restaurant.domain.PagamentoComBoleto;
 import com.suanev.restaurant.domain.Pedido;
+import com.suanev.restaurant.domain.enums.EstadoPagamento;
 import com.suanev.restaurant.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -15,6 +21,46 @@ public class PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
+
+    @Autowired
+    private PedidoService pedidoService;
+
+    @Autowired
+    private BoletoService boletoService;
+
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
+
+    @Autowired
+    private ProdutoService produtoService;
+
+    @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
+
+    public Pedido insert(Pedido pedido) {
+        pedido.setId(null);
+        pedido.setInstante(new Date());
+        pedido.setCliente(clienteService.getById(pedido.getCliente().getId()));
+        pedido.getPagamento().setEstado(EstadoPagamento.PENDENTE);
+        pedido.getPagamento().setPedido(pedido);
+        if (pedido.getPagamento() instanceof PagamentoComBoleto) {
+            PagamentoComBoleto pagto = (PagamentoComBoleto) pedido.getPagamento();
+            boletoService.preencherPagamentoComBoleto(pagto, pedido.getInstante());
+        }
+        pedido = pedidoRepository.save(pedido);
+        pagamentoRepository.save(pedido.getPagamento());
+        for (ItemPedido ip : pedido.getItens()) {
+            ip.setDesconto(0.0);
+            ip.setProduto(produtoService.getById(ip.getProduto().getId()));
+            ip.setPreco(ip.getProduto().getPreco());
+            ip.setPedido(pedido);
+        }
+        itemPedidoRepository.saveAll(pedido.getItens());
+        return pedido;
+    }
 
     public Pedido getById(Integer id) {
         Optional<Pedido> pedido = pedidoRepository.findById(id);

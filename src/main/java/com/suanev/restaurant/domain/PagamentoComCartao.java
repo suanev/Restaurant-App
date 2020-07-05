@@ -1,27 +1,34 @@
 package com.suanev.restaurant.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.suanev.restaurant.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
 
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento {
+    private static final long serialVersionUID = 1L;
 
-    private Integer numeroParcelas;
+    private Integer numeroDeParcelas;
 
-    public PagamentoComCartao(){}
-
-    public PagamentoComCartao(Integer id, EstadoPagamento estadoPagamento, Pedido pedido, Integer numeroParcelas) {
-        super(id, estadoPagamento, pedido);
-        this.numeroParcelas = numeroParcelas;
+    public PagamentoComCartao() {
     }
 
-    public Integer getNumeroParcelas() {
-        return numeroParcelas;
+    public PagamentoComCartao(Integer id, EstadoPagamento estado, Pedido pedido, Integer numeroDeParcelas) {
+        super(id, estado, pedido);
+        this.numeroDeParcelas = numeroDeParcelas;
     }
 
-    public void setNumeroParcelas(Integer numeroParcelas) {
-        this.numeroParcelas = numeroParcelas;
+    public Integer getNumeroDeParcelas() {
+        return numeroDeParcelas;
     }
+
+    public void setNumeroDeParcelas(Integer numeroDeParcelas) {
+        this.numeroDeParcelas = numeroDeParcelas;
+    }
+
+
+
 }
