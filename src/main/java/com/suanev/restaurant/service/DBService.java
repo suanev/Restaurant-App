@@ -5,6 +5,7 @@ import com.suanev.restaurant.domain.*;
 import com.suanev.restaurant.domain.enums.EstadoPagamento;
 import com.suanev.restaurant.domain.enums.TipoCliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -40,6 +41,9 @@ public class DBService {
 
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void instantiateTestDatabase() throws ParseException {
         //instanciando categorias
@@ -290,11 +294,11 @@ public class DBService {
         estadoRepository.saveAll(Arrays.asList(estado1, estado2, estado3));
         cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 
-        Cliente cliente1 = new Cliente(null, "Bruno Fraga", "brunof@gmail.com", "42377354351", TipoCliente.PESSOAFISICA);
+        Cliente cliente1 = new Cliente(null, "Bruno Fraga", "brunof@gmail.com", "42377354351", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("batata"));
         cliente1.getTelefones().addAll(Arrays.asList("835269193", "622869313"));
-        Cliente cliente2 = new Cliente(null, "Camila Fernandes", "camilafernandes@gmail.com", "38625415768", TipoCliente.PESSOAFISICA);
+        Cliente cliente2 = new Cliente(null, "Camila Fernandes", "camilafernandes@gmail.com", "38625415768", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("batata"));
         cliente2.getTelefones().addAll(Arrays.asList("729926093"));
-        Cliente cliente3 = new Cliente(null, "Elena G", "elenag@gmail.com", "11272246035", TipoCliente.PESSOAFISICA);
+        Cliente cliente3 = new Cliente(null, "Elena G", "elenag@gmail.com", "11272246035", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("batata"));
         cliente3.getTelefones().addAll(Arrays.asList("143743495"));
 
         Endereco endereco1 = new Endereco(null, "Rua Dr.luis da Silva Santos", "780", "ap. 201", "Auxiliadora", "90450236", cliente1, cidade1);
