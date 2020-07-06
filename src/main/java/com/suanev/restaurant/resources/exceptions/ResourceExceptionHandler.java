@@ -1,5 +1,6 @@
 package com.suanev.restaurant.resources.exceptions;
 
+import com.suanev.restaurant.service.exceptions.AuthorizationException;
 import com.suanev.restaurant.service.exceptions.DataIntegrityException;
 import com.suanev.restaurant.service.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -33,5 +34,11 @@ public class ResourceExceptionHandler {
             err.addError(x.getField(), x.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> Authorization(AuthorizationException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
     }
 }

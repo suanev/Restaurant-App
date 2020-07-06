@@ -5,9 +5,12 @@ import com.suanev.restaurant.Repositories.EnderecoRepository;
 import com.suanev.restaurant.domain.Cidade;
 import com.suanev.restaurant.domain.Cliente;
 import com.suanev.restaurant.domain.Endereco;
+import com.suanev.restaurant.domain.enums.Perfil;
 import com.suanev.restaurant.domain.enums.TipoCliente;
 import com.suanev.restaurant.dto.ClienteDTO;
 import com.suanev.restaurant.dto.ClienteNewDTO;
+import com.suanev.restaurant.security.UserSS;
+import com.suanev.restaurant.service.exceptions.AuthorizationException;
 import com.suanev.restaurant.service.exceptions.DataIntegrityException;
 import com.suanev.restaurant.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,11 @@ public class ClienteService {
     }
 
     public Cliente getById(Integer id) {
+        UserSS user = UserService.authenticated();
+        if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+            throw  new AuthorizationException("Acesso negado");
+        }
+
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", Tipo: "+Cliente.class.getName()));
     }
