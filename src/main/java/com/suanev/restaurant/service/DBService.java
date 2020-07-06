@@ -3,6 +3,7 @@ package com.suanev.restaurant.service;
 import com.suanev.restaurant.Repositories.*;
 import com.suanev.restaurant.domain.*;
 import com.suanev.restaurant.domain.enums.EstadoPagamento;
+import com.suanev.restaurant.domain.enums.Perfil;
 import com.suanev.restaurant.domain.enums.TipoCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -294,8 +295,9 @@ public class DBService {
         estadoRepository.saveAll(Arrays.asList(estado1, estado2, estado3));
         cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 
-        Cliente cliente1 = new Cliente(null, "Bruno Fraga", "brunof@gmail.com", "42377354351", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("batata"));
+        Cliente cliente1 = new Cliente(null, "Bruno Fraga", "brunofraga@gmail.com", "42377354351", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("batata"));
         cliente1.getTelefones().addAll(Arrays.asList("835269193", "622869313"));
+        cliente1.addPerfil(Perfil.ADMIN);
         Cliente cliente2 = new Cliente(null, "Camila Fernandes", "camilafernandes@gmail.com", "38625415768", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("batata"));
         cliente2.getTelefones().addAll(Arrays.asList("729926093"));
         Cliente cliente3 = new Cliente(null, "Elena G", "elenag@gmail.com", "11272246035", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("batata"));
