@@ -40,6 +40,10 @@ public class PedidoService {
     @Autowired
     private PagamentoRepository pagamentoRepository;
 
+    @Autowired
+    private EmailService emailService;
+
+    @Transactional
     public Pedido insert(Pedido pedido) {
         pedido.setId(null);
         pedido.setInstante(new Date());
@@ -59,6 +63,7 @@ public class PedidoService {
             ip.setPedido(pedido);
         }
         itemPedidoRepository.saveAll(pedido.getItens());
+        emailService.sendOrderConfirmationEmail(pedido);
         return pedido;
     }
 
