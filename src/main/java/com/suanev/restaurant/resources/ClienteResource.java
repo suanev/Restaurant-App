@@ -1,7 +1,6 @@
 package com.suanev.restaurant.resources;
 
 import com.suanev.restaurant.domain.Cliente;
-import com.suanev.restaurant.domain.Cliente;
 import com.suanev.restaurant.dto.ClienteDTO;
 import com.suanev.restaurant.dto.ClienteNewDTO;
 import com.suanev.restaurant.service.ClienteService;
@@ -35,6 +34,12 @@ public class ClienteResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Cliente> getById(@PathVariable Integer id) {
         Cliente cliente = clienteService.getById(id);
+        return ResponseEntity.ok().body(cliente);
+    }
+
+    @RequestMapping(value="/email", method=RequestMethod.GET)
+    public ResponseEntity<Cliente> find(@RequestParam(value="value") String email) {
+        Cliente cliente = clienteService.findByEmail(email);
         return ResponseEntity.ok().body(cliente);
     }
 
