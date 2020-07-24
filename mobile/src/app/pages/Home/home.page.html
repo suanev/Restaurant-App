@@ -1,3 +1,11 @@
 <ion-content>
-
+    <h2>Categorias</h2>
+    <ion-slides [options]="slideOpts">
+        <ion-slide *ngFor="let item of categorias">
+          <span>
+            <img [src]="item.img" alt="">
+            <p>{{item.nome}}</p>
+          </span>
+        </ion-slide>
+      </ion-slides>
 </ion-content>

@@ -13,11 +13,17 @@ export class Home implements OnInit{
   constructor(private service: CategoriaService) {
     
   }
-  categoria: Categoria[];
+
+  slideOpts = {
+    speed: 400,
+    scrollbar: true
+  };
+
+  categorias: Categoria[];
 
   ngOnInit(): void {
     this.service.getCategorias()
-      .subscribe(dados => console.log(dados));
+      .subscribe(dados => this.categorias = dados);
   }
 
 }

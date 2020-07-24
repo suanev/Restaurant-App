@@ -1,0 +1,28 @@
+  span img{
+    width: 132px;
+    height: 112px;
+    margin-top: 80px;
+    border-radius: 10px;
+  }
+
+  img:first-child(){
+    margin-top: 97px;
+    margin-bottom: -20px;
+  }
+  
+  ion-slide {
+    float: left;
+    margin-right: 20px;
+    width: 132px !important;
+    height: 112px !important;
+  }
+
+  ion-slides{
+    margin: 20px;
+    margin-top: 20px;
+    height: 100%;
+  }
+
+  h2 {
+    margin: 20px;
+  }
