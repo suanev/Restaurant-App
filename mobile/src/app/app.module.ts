@@ -10,6 +10,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { CategoriaService } from 'src/service/categoria.service';
+import { AuthService } from 'src/service/auth.service';
+import { StorageService } from 'src/service/storage.service';
+import { ClienteService } from 'src/service/cliente.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +22,9 @@ import { CategoriaService } from 'src/service/categoria.service';
     StatusBar,
     SplashScreen,
     CategoriaService,
+    AuthService,
+    StorageService,
+    ClienteService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

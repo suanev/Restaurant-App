@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from 'src/service/storage.service';
+import { Cliente } from 'src/interfaces/cliente';
+import { ClienteService } from 'src/service/cliente.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilePage implements OnInit {
 
-  constructor() { }
+  cliente: Cliente;
+
+  constructor(private storage: StorageService, private service: ClienteService) { }
 
   ngOnInit() {
+    let localUser = this.storage.getLocalUser();
+    if(localUser && localUser.email) {
+      this.service.getByEmail(localUser.email).subscribe(response => this.cliente = response);
+    }
   }
 
 }
