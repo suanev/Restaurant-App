@@ -38,11 +38,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                 })) as any;
     }
 
-
-    handle403() {
-        this.storage.setLocalUser(null);
-    }
-
     async handle401() {
         const alert = await this.alertCtrl.create({
             header: 'Opss! Algo deu errado!',
@@ -51,6 +46,10 @@ export class ErrorInterceptor implements HttpInterceptor {
             buttons: ['Ok']
         });
         await alert.present();
+    }
+
+    handle403() {
+        this.storage.setLocalUser(null);
     }
 
     async handle422(errorObj) {

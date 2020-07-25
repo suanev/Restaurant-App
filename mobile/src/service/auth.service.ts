@@ -27,6 +27,17 @@ export class AuthService {
         );
     }
 
+    refreshToken() {
+        return this.http.post(
+            `${this.url}/auth/refresh_token`,
+            {},
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        );
+    }
+
     successfulLogin(authorizationValue: string) {
         let tok = authorizationValue.substring(7);
         let user: User = {

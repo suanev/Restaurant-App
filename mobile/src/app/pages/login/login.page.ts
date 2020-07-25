@@ -20,13 +20,20 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewDidEnter() {
+    this.Auth.refreshToken()
+    .subscribe(response => {
+      this.Auth.successfulLogin(response.headers.get('Authorization'))
+      this.navCtrl.navigateForward('/tabs/home');
+    });
+  }
+
   login() {
     this.Auth.authenticate(this.credenciais)
     .subscribe(response => {
       this.Auth.successfulLogin(response.headers.get('Authorization'))
       this.navCtrl.navigateForward('/tabs/home');
     });
-    console.log(this.credenciais)
   }
 
 }
