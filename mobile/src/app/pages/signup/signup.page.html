@@ -13,11 +13,11 @@
           inválido</p>
         <div class="input-area">
             <label>
-              <input type="radio" checked="true" value="1" formControlName="tipo">
+              <input type="radio" checked="true" value="1" formControlName="tipoCliente">
               Pessoa física
             </label>
             <label>
-              <input type="radio" checked="false" value="2" formControlName="tipo">
+              <input type="radio" checked="false" value="2" formControlName="tipoCliente">
               Pessoa jurídica
             </label>
         </div>
@@ -64,19 +64,19 @@
         <div class="input-area">
           <input formControlName="telefone3" placeholder="Telefone para contato" type="text">
         </div>
-        <div class="input-area">
-          <label>Estado</label>
-          <select formControlName="estadoId" (change)="updateCidades()">
-            <option *ngFor="let estado of estados; first as e" [value]="estado.id" [selected]="e">{{estado.nome}}</option>
-          </select>
-        </div>
-        <div class="input-area">
-          <label>Cidade</label>
-          <select formControlName="cidadeId">
-            <option *ngFor="let cidade of cidades; first as c" [value]="cidade.id" [selected]="c">{{cidade.nome}}</option>
-          </select>
-        </div>
-        <button type="submit" [disabled]="formGroup.invalid" class="sign-up">Cadastrar</button>
+        <ion-item>
+          <ion-label stacked>Estado*</ion-label>
+          <ion-select formControlName="estadoId" (ionChange)="updateCidades()">
+            <ion-select-option *ngFor="let estado of estados; first as f" [value]="estado.id" [selected]="f">{{estado.nome}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Cidade*</ion-label>
+          <ion-select formControlName="cidadeId">
+            <ion-select-option *ngFor="let cidade of cidades" [value]="cidade.id">{{cidade.nome}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <button type="submit" class="sign-up">Cadastrar</button>
         <button class="signin">já possui cadastro?</button>
       </form>
     </div>

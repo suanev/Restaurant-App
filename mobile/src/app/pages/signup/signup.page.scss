@@ -13,7 +13,7 @@
         background-color: rgb(230, 100, 100);
     }
     
-    .input-area {
+    .input-area, ion-item {
         margin: 50px;
         display: flex;
         margin-top: 20px;
@@ -38,14 +38,14 @@
             font-size: 1.3rem;
         }
 
-        select, option {
+        select, option, ion-select, ion-select-option {
             border: 0;
             outline: 0;
             font-size: 1rem;
             background-color: #FFFFFF;
         }
 
-        label {
+        label, ion-label {
             color: #282828;
             margin-bottom: 20px;
         }
