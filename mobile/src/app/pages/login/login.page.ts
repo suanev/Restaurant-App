@@ -36,4 +36,8 @@ export class LoginPage implements OnInit {
     });
   }
 
+  signUp() {
+    this.navCtrl.navigateForward('/signup')
+  }
+
 }

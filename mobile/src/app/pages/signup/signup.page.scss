@@ -1,0 +1,82 @@
+.container {
+    margin: auto;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+
+    .danger {
+        margin: 50px;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 20px;
+        color: #FFFFFF;
+        background-color: rgb(230, 100, 100);
+    }
+    
+    .input-area {
+        margin: 50px;
+        display: flex;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        flex-direction: column;    
+
+        input {
+            border: 0;
+            outline: 0;
+            padding: .7rem;
+            transition: all .3s;
+            margin-bottom: .5rem;
+            border-bottom: 1px solid #282828;
+        }
+
+        input:focus {
+            border-bottom: 1px solid #EA9E44;
+        }
+
+        input:focus {
+            left: 10px;
+            font-size: 1.3rem;
+        }
+
+        select, option {
+            border: 0;
+            outline: 0;
+            font-size: 1rem;
+            background-color: #FFFFFF;
+        }
+
+        label {
+            color: #282828;
+            margin-bottom: 20px;
+        }
+    }
+
+    .sign-up {
+        margin: 50px;
+        width: 335px;
+        height: 50px;
+        color: #FFFFFF;
+        font-weight: 700;
+        margin-top: 20px;
+        text-align: center;
+        padding: 15px 10px;
+        margin-bottom: 15px;
+        background: #EA9E44;
+        text-transform: uppercase;
+        letter-spacing: .05rem;
+
+        &:disabled {
+            background: #bbb8b4;
+        }
+    }
+
+    .signin {
+        margin: 50px;
+        width: 335px;
+        height: 50px;
+        margin-top: 20px;
+        color : #757575;
+        text-align: center;
+        margin-bottom: 15px;
+    }    
+}

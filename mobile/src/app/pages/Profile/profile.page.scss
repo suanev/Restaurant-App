@@ -9,7 +9,7 @@ ion-toolbar {
 
 ion-content {
     h2, p {
-        margin-left: 20px;
+        margin-left: 30px;
     }
     h2 {
         color: #B3B3B3;
@@ -24,4 +24,30 @@ ion-content {
         margin-right: 50px;
         border-bottom: 1px solid rgba(51, 51, 51, 0.432);
     }
+
+    .logout {
+        margin: auto;
+        display: flex;
+        padding: 10px;
+        margin-top: 80px;
+        border-radius: 4px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid #AF1414;
+
+        ion-icon {
+            color: #AF1414;
+            font-size: 26px;
+        }
+    
+        h3 {
+            margin: 3px;
+            margin-left: 10px;
+            font-size: 18px;
+            color: #AF1414;
+        }
+    }
+
+    
 }

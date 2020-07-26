@@ -15,6 +15,10 @@ export class ClienteService {
 
     constructor(private http: HttpClient, private storage: StorageService) { }
 
+    getById(id: string) {
+        return this.http.get(`${this.url}/clientes/${id}`);
+    }
+
     getByEmail(email: string) {
         let token = this.storage.getLocalUser().token;
         let authHeader = new HttpHeaders({'Authorization': `Bearer ${token}`});
@@ -23,4 +27,16 @@ export class ClienteService {
             `${this.url}/clientes/email?value=${email}`,
             {'headers': authHeader});
     }
+
+    insert(cliente : Cliente) {
+        return this.http.post(
+            `${this.url}/clientes`, 
+            cliente,
+            { 
+                observe: 'response', 
+                responseType: 'text'
+            }
+        ); 
+    }
+
 }

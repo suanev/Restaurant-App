@@ -3,6 +3,7 @@ import { StorageService } from 'src/service/storage.service';
 import { Cliente } from 'src/interfaces/cliente';
 import { ClienteService } from 'src/service/cliente.service';
 import { NavController } from '@ionic/angular';
+import { AuthService } from 'src/service/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,7 @@ export class ProfilePage implements OnInit {
 
   cliente: Cliente;
 
-  constructor(private storage: StorageService, private service: ClienteService, private navCtrl: NavController) { }
+  constructor(private storage: StorageService, private service: ClienteService, private authService: AuthService, private navCtrl: NavController) { }
 
   ngOnInit() {
     let localUser = this.storage.getLocalUser();
@@ -28,5 +29,9 @@ export class ProfilePage implements OnInit {
     else {
       this.navCtrl.navigateRoot('LoginPage');
     };
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

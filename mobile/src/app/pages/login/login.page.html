@@ -5,8 +5,8 @@
       <input type="text" placeholder="Email" [(ngModel)]="credenciais.email" name="email"/>
       <input type="password" placeholder="Senha" [(ngModel)]="credenciais.senha" name="senha"/>
       <button class="sign-in" (click)="login()">Entrar</button>
-      <button class="signup">
-        Já possui cadastro?
+      <button class="signup" (click)="signUp()">
+        Não possui cadastro?
       </button>
     </form>
   </div>

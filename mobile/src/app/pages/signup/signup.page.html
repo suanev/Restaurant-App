@@ -1,0 +1,83 @@
+<ion-content>
+    <div class="container">
+      <form [formGroup]='formGroup' (ngSubmit)='signupUser(); $event.preventDefault()'>
+        <div class="input-area">
+          <input formControlName="nome" placeholder="Nome" type="text">
+        </div>
+        <p class="danger" *ngIf="formGroup.controls.nome.dirty && formGroup.controls.nome.errors" margin-left>Valor
+          inválido</p>
+        <div class="input-area">
+          <input formControlName="email" placeholder="Email" type="text">
+        </div>
+        <p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor
+          inválido</p>
+        <div class="input-area">
+            <label>
+              <input type="radio" checked="true" value="1" formControlName="tipo">
+              Pessoa física
+            </label>
+            <label>
+              <input type="radio" checked="false" value="2" formControlName="tipo">
+              Pessoa jurídica
+            </label>
+        </div>
+
+        <div class="input-area">
+          <input formControlName="cpfOuCnpj" placeholder="CPF ou CNPJ" type="text">
+        </div>
+        <p class="danger" *ngIf="formGroup.controls.cpfOuCnpj.dirty && formGroup.controls.cpfOuCnpj.errors" margin-left>
+          Valor inválido</p>
+        <div class="input-area">
+          <input formControlName="senha" placeholder="Senha" type="password">
+        </div>
+        <p class="danger" *ngIf="formGroup.controls.senha.dirty && formGroup.controls.senha.errors" margin-left>Valor
+          inválido</p>
+        <div class="input-area">
+          <input formControlName="logradouro" placeholder="Logradouro" type="text">
+        </div>
+        <p class="danger" *ngIf="formGroup.controls.logradouro.dirty && formGroup.controls.logradouro.errors"
+          margin-left>Valor inválido</p>
+        <div class="input-area">
+          <input formControlName="numero" placeholder="Número" type="text">
+        </div>
+        <p class="danger" *ngIf="formGroup.controls.numero.dirty && formGroup.controls.numero.errors" margin-left>Valor
+          inválido</p>
+        <div class="input-area">
+          <input formControlName="complemento" placeholder="Complemento" type="text">
+        </div>
+        <div class="input-area">
+          <input formControlName="bairro" placeholder="Bairro" type="text">
+        </div>
+        <div class="input-area">
+          <input formControlName="cep" placeholder="CEP" type="text">
+        </div>
+        <p class="danger" *ngIf="formGroup.controls.cep.dirty && formGroup.controls.cep.errors" margin-left>Valor
+          inválido</p>
+        <div class="input-area">
+          <input formControlName="telefone1" placeholder="Telefone Principal" type="text">
+        </div>
+        <p class="danger" *ngIf="formGroup.controls.telefone1.dirty && formGroup.controls.telefone1.errors" margin-left>
+          Valor inválido</p>
+        <div class="input-area">
+          <input formControlName="telefone2" placeholder="Celular" type="text">
+        </div>
+        <div class="input-area">
+          <input formControlName="telefone3" placeholder="Telefone para contato" type="text">
+        </div>
+        <div class="input-area">
+          <label>Estado</label>
+          <select formControlName="estadoId" (change)="updateCidades()">
+            <option *ngFor="let estado of estados; first as e" [value]="estado.id" [selected]="e">{{estado.nome}}</option>
+          </select>
+        </div>
+        <div class="input-area">
+          <label>Cidade</label>
+          <select formControlName="cidadeId">
+            <option *ngFor="let cidade of cidades; first as c" [value]="cidade.id" [selected]="c">{{cidade.nome}}</option>
+          </select>
+        </div>
+        <button type="submit" [disabled]="formGroup.invalid" class="sign-up">Cadastrar</button>
+        <button class="signin">já possui cadastro?</button>
+      </form>
+    </div>
+</ion-content>
